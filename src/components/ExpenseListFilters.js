@@ -9,7 +9,7 @@ import {
   setEndDate
 } from '../actions/filters';
 
-class ExpenseListFilters extends React.Component {
+export class ExpenseListFilters extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,31 +17,30 @@ class ExpenseListFilters extends React.Component {
     };
   }
 
-  handleDatesChange = ({ startDate, endDate }) => {
-    this.props.dispatch(setEndDate(endDate));
-    this.props.dispatch(setStartDate(startDate));
+  handleTextChange = e => {
+    this.props.setTextFilter(e.target.value);
   };
+
+  handleSortByChange = e => {
+    if (e.target.value === 'date') {
+      this.props.sortByDate();
+    } else if (e.target.value === 'amount') {
+      this.props.sortByAmount();
+    }
+  };
+
+  handleDatesChange = ({ startDate, endDate }) => {
+    this.props.setEndDate(endDate);
+    this.props.setStartDate(startDate);
+  };
+
+  handleFocusChange = focusedInput => this.setState({ focusedInput });
 
   render() {
     return (
       <div>
-        <input
-          type="text"
-          value={this.props.filters.text}
-          onChange={e => {
-            this.props.dispatch(setTextFilter(e.target.value));
-          }}
-        />
-        <select
-          value={this.props.filters.sortBy}
-          onChange={e => {
-            if (e.target.value === 'date') {
-              this.props.dispatch(sortByDate());
-            } else if (e.target.value === 'amount') {
-              this.props.dispatch(sortByAmount());
-            }
-          }}
-        >
+        <input type="text" value={this.props.filters.text} onChange={this.handleTextChange} />
+        <select value={this.props.filters.sortBy} onChange={this.handleSortByChange}>
           <option value="date">Date</option>
           <option value="amount">Amount</option>
         </select>
@@ -53,7 +52,7 @@ class ExpenseListFilters extends React.Component {
             endDateId="endDate"
             onDatesChange={this.handleDatesChange}
             focusedInput={this.state.focusedInput}
-            onFocusChange={focusedInput => this.setState({ focusedInput })}
+            onFocusChange={this.handleFocusChange}
             isOutsideRange={() => false}
             numberOfMonths={1}
             showClearDates
@@ -70,4 +69,15 @@ const mapStateToProps = state => ({
   filters: state.filters
 });
 
-export default connect(mapStateToProps)(ExpenseListFilters);
+const mapDispatchToProps = dispatch => ({
+  setTextFilter: text => dispatch(setTextFilter(text)),
+  sortByDate: () => dispatch(sortByDate()),
+  sortByAmount: () => dispatch(sortByAmount()),
+  setEndDate: endDate => dispatch(setEndDate(endDate)),
+  setStartDate: startDate => dispatch(setStartDate(startDate))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ExpenseListFilters);

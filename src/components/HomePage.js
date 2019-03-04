@@ -4,7 +4,7 @@ import ExpenseListFilters from './ExpenseListFilters';
 
 const HomePage = props => (
   <div>
-    <ExpenseListFilters {...props.filters} />
+    <ExpenseListFilters />
     <ExpenseList />
   </div>
 );

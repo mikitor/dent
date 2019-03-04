@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Header component 1`] = `
+<header>
+  <h1>
+    Dent
+  </h1>
+  <ul>
+    <li>
+      <NavLink
+        activeClassName="selected"
+        aria-current="page"
+        exact={true}
+        to="/"
+      >
+        Home
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        activeClassName="selected"
+        aria-current="page"
+        to="/add"
+      >
+        Add Expense
+      </NavLink>
+    </li>
+  </ul>
+</header>
+`;
