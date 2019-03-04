@@ -9,8 +9,8 @@ exports[`should render ExpenseListItem component with props 1`] = `
     Test one desc
   </Link>
   <p>
-    Amount: 
-    400
+    Amount: $
+    4
   </p>
   <p>
     CreatedAt: 

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const ExpenseListItem = ({ description, amount, createdAt, id }) => (
   <div>
     <Link to={`/edit/${id}`}>{description}</Link>
-    <p>Amount: {amount}</p>
+    <p>Amount: ${amount / 100}</p>
     <p>CreatedAt: {moment(createdAt).format('LL')}</p>
   </div>
 );
